@@ -16,4 +16,3 @@ script = ExtResource("1_qoi2i")
 [node name="PrototypeLevel" parent="CurrentLevel" instance=ExtResource("1_rtgv3")]
 
 [node name="UserInterface" parent="." instance=ExtResource("2_mgb3u")]
-visible = false

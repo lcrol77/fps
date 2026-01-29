@@ -46,7 +46,7 @@ func _physics_process(delta: float) -> void:
 	velocity = _movement_velocity
 
 	move_and_slide()
-	
+
 
 func update_rotation(rotation_input) -> void:
 	global_transform.basis = Basis.from_euler(rotation_input)
