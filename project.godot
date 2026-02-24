@@ -30,7 +30,7 @@ project/assembly_name="FPS Series Build"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdscript_formatter/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg")
 
 [file_customization]
 
@@ -90,4 +90,5 @@ dev_reload={
 
 [physics]
 
+common/physics_ticks_per_second=180
 3d/physics_engine="Jolt Physics"
