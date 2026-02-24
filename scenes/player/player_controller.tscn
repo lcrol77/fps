@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://d0xgg3pig4b6i" path="res://assets/scripts/player/components/mouse_capture.gd" id="1_4q5nu"]
 [ext_resource type="Script" uid="uid://4ocvqma2qqqy" path="res://assets/scripts/player/camera_controller.gd" id="1_iivv4"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="2_y4pjd"]
-[ext_resource type="Script" uid="uid://n1k30kvo76c5" path="res://scenes/player/camera_effects.gd" id="4_0l0yx"]
+[ext_resource type="Script" uid="uid://n1k30kvo76c5" path="res://assets/scripts/player/camera_effects.gd" id="4_0l0yx"]
 [ext_resource type="Script" uid="uid://bqeyf8hqbc7xy" path="res://assets/scripts/player/components/interaction_raycast.gd" id="4_cv1cy"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_rkuj1"]
 [ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="5_ers80"]
