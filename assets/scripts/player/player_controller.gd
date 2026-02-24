@@ -3,6 +3,7 @@ class_name PlayerController extends CharacterBody3D
 @export var debug : bool = false
 @export_category("References")
 @export var camera : CameraController
+@export var camera_effects : CameraEffects
 @export var state_chart : StateChart
 @export var standing_collision : CollisionShape3D
 @export var crouching_collision : CollisionShape3D
