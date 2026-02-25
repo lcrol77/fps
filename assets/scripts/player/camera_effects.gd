@@ -8,6 +8,7 @@ class_name CameraEffects extends Camera3D
 @export var enable_fall_kick: bool = true
 @export var enable_damange_kick: bool = true
 @export var enable_weapon_kick: bool = true
+@export var enable_screen_shake: bool = true
 
 @export_category("Kick and Recoil Settings")
 @export_group("Run Tilt")
@@ -31,6 +32,11 @@ var _damage_roll: float = 0.0
 var _damage_timer: float = 0.0
 
 var _weapon_kick_angles: Vector3 = Vector3.ZERO
+
+var _screen_shake_tween: Tween
+
+const MIN_SCREEN_SHAKE: float = 0.05
+const MAX_SCREEN_SHAKE: float = 0.5
 
 
 func _process(delta: float) -> void:
@@ -101,3 +107,17 @@ func add_weapon_kick(pitch, yaw, roll):
 	_weapon_kick_angles.x += deg_to_rad(pitch)
 	_weapon_kick_angles.y += deg_to_rad(randf_range(-yaw, yaw))
 	_weapon_kick_angles.z += deg_to_rad(randf_range(-roll, roll))
+
+
+func add_screen_shake(amount: float, seconds) -> void:
+	if _screen_shake_tween:
+		_screen_shake_tween.kill()
+	_screen_shake_tween = create_tween()
+	_screen_shake_tween.tween_method(update_screen_shake.bind(amount), 0.0, 1.0, seconds).set_ease(Tween.EASE_OUT)
+
+
+func update_screen_shake(alpha: float, amount: float):
+	amount = remap(amount, 0.0, 1.0, MIN_SCREEN_SHAKE, MAX_SCREEN_SHAKE)
+	var current_shake_amount = amount * (1.0 - alpha)
+	h_offset = randf_range(-current_shake_amount, current_shake_amount)
+	v_offset = randf_range(-current_shake_amount, current_shake_amount)

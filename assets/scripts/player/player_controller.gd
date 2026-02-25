@@ -35,7 +35,8 @@ func _input(event: InputEvent) -> void:
 		camera_effects.add_damage_kick(2.0, 2.0, %DamageKickSource.position)
 	if event.is_action_pressed("left_mouse"):
 		camera_effects.add_weapon_kick(2.0, 2.0, 2.0)
-
+	if event.is_action_pressed("screen_shake"):
+		camera_effects.add_screen_shake(1.0,.5)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
