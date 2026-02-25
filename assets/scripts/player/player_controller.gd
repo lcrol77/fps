@@ -19,6 +19,7 @@ class_name PlayerController extends CharacterBody3D
 @export var crouch_speed : float = -5.0
 @export_category("Jump Settings")
 @export var jump_velocity : float = 5.
+@export var fall_detection_threshold: float = -5.0
 
 var _input_dir : Vector2 = Vector2.ZERO
 var _movement_velocity : Vector3 = Vector3.ZERO
@@ -26,6 +27,7 @@ var sprint_modifier : float = 0.0
 var crouch_modifier : float = 0.0
 var speed : float = 0.0
 var _pending_rotation : Vector3
+var current_fall_velocity: float
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -76,3 +78,12 @@ func crouch() -> void:
 
 func jump() -> void:
 	velocity.y += jump_velocity
+	
+
+func check_fall_speed() -> bool:
+	if current_fall_velocity < fall_detection_threshold:
+		current_fall_velocity = 0.0
+		return true
+	current_fall_velocity = 0.0
+	return false
+		
