@@ -9,6 +9,7 @@ class_name CameraEffects extends Camera3D
 @export var enable_damange_kick: bool = true
 @export var enable_weapon_kick: bool = true
 @export var enable_screen_shake: bool = true
+@export var enable_headbob: bool = true
 
 @export_category("Kick and Recoil Settings")
 @export_group("Run Tilt")
@@ -23,6 +24,11 @@ class_name CameraEffects extends Camera3D
 @export var damage_time: float = 0.3
 @export_subgroup("Weapon Kick")
 @export var weapon_decay: float = 0.5
+@export_group("Headbob")
+@export_range(0.0, 0.1, 0.001) var bob_pitch: float = 0.05
+@export_range(0.0, 0.1, 0.001) var bob_roll: float = 0.025
+@export_range(0.0, 0.04, 0.001) var bob_up: float = 0.005
+@export_range(3.0, 8.0, 0.1) var bob_frequency: float = 6.0
 
 var _fall_value: float = 0.0
 var _fall_timer: float = 0.0
@@ -34,6 +40,8 @@ var _damage_timer: float = 0.0
 var _weapon_kick_angles: Vector3 = Vector3.ZERO
 
 var _screen_shake_tween: Tween
+
+var _step_timer: float = 0.0
 
 const MIN_SCREEN_SHAKE: float = 0.05
 const MAX_SCREEN_SHAKE: float = 0.5
@@ -49,6 +57,16 @@ func calculate_view_offset(delta: float) -> void:
 	_fall_timer -= delta
 	_damage_timer -= delta
 	var velocity = player.velocity
+
+	# Headbob Step Timer and Sin Value
+	var speed = Vector2(velocity.x, velocity.z).length()
+	if speed > 0.1 and player.is_on_floor():
+		_step_timer += delta * (speed / bob_frequency)
+		_step_timer = fmod(_step_timer, 1.0)
+	else:
+		_step_timer = 0.0
+	var bob_sin = sin(_step_timer * 2.0 * PI) * 0.5
+
 	var angles = Vector3.ZERO
 	var offset = Vector3.ZERO
 
@@ -82,6 +100,17 @@ func calculate_view_offset(delta: float) -> void:
 	if enable_weapon_kick:
 		_weapon_kick_angles = _weapon_kick_angles.move_toward(Vector3.ZERO, weapon_decay * delta)
 		angles += _weapon_kick_angles
+
+	# Head Bob
+	if enable_headbob:
+		var pitch_delta = bob_sin * deg_to_rad(bob_pitch) * speed
+		angles.x -= pitch_delta
+		
+		var roll_delta = bob_sin * deg_to_rad(bob_roll) * speed
+		angles.z -= roll_delta
+		
+		var bob_height = bob_sin * speed * bob_up
+		offset.y += bob_height
 
 	position = offset
 	rotation = angles

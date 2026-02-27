@@ -79,6 +79,9 @@ component_mouse_capture = NodePath("../Components/MouseCapture")
 physics_interpolation_mode = 1
 script = ExtResource("4_0l0yx")
 player = NodePath("../..")
+bob_pitch = 0.1
+bob_roll = 0.05
+bob_up = 0.02
 
 [node name="InteractionRaycast" type="RayCast3D" parent="CameraController/Camera3D" unique_id=1493267716]
 target_position = Vector3(0, 0, -3)
